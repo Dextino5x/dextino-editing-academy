@@ -15,6 +15,7 @@
             --text-muted: #9ca3af;
             --border: #27272a;
             --success: #10b981;
+            --pro-badge: #f59e0b;
         }
 
         * {
@@ -56,6 +57,7 @@
             align-items: center;
             gap: 0.75rem;
             text-decoration: none;
+            cursor: pointer;
         }
 
         .dx-icon {
@@ -147,9 +149,9 @@
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            max-width: 750px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            max-width: 900px;
             width: 100%;
             margin-top: 1rem;
         }
@@ -160,6 +162,7 @@
             border-radius: 12px;
             padding: 1.5rem;
             text-align: left;
+            cursor: pointer;
             transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
@@ -181,6 +184,162 @@
             margin-bottom: 0;
         }
 
+        /* Modal/View Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            padding: 1.5rem;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: left;
+            position: relative;
+            animation: scaleUp 0.3s ease-out;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        @keyframes scaleUp {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: var(--text-main);
+        }
+
+        .module-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .module-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: border-color 0.2s ease;
+        }
+
+        .module-item:hover {
+            border-color: var(--accent);
+        }
+
+        .badge-pro {
+            font-size: 0.7rem;
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--pro-badge);
+            border: 1px solid var(--pro-badge);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .badge-free {
+            font-size: 0.7rem;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            border: 1px solid var(--success);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* Chat UI Styles */
+        .chat-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            height: 200px;
+            overflow-y: auto;
+            padding: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .chat-msg {
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .chat-msg span {
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        .chat-send {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
         footer {
             border-top: 1px solid var(--border);
             background-color: var(--bg-secondary);
@@ -199,7 +358,7 @@
 <body>
 
     <header>
-        <div class="logo-container">
+        <div class="logo-container" onclick="location.reload();">
             <div class="dx-icon">DX</div>
             <div class="logo-text">Dextino <span>Academy</span></div>
         </div>
@@ -207,27 +366,161 @@
 
     <main>
         <div class="hero-badge">
-            <span class="pulse-dot"></span> Phase 1 Online
+            <span class="pulse-dot"></span> Ecosystem Active
         </div>
         <h1>Master the art of editing.</h1>
-        <p>A professional educational platform built for video editors, mastering keyframes, speed ramps, colour grading, and advanced visual techniques.</p>
+        <p>A professional ecosystem built for mobile and desktop video editors, featuring masterclasses, AI suites, preset imports, and public chat rooms.</p>
         
         <div class="features-grid">
-            <div class="status-card">
+            <div class="status-card" onclick="openModal('curriculumModal')">
                 <h3>Curriculum Hub</h3>
-                <p>CapCut, Alight Motion, and After Effects masterclasses coming soon.</p>
+                <p>CapCut, Alight Motion, and After Effects masterclasses & preset imports.</p>
             </div>
-            <div class="status-card">
+            <div class="status-card" onclick="openModal('analyzerModal')">
                 <h3>AI Edit Analyzer</h3>
-                <p>Upload a reference edit, let AI break down its cuts and keyframes, and get instant custom tutorials.</p>
+                <p>Reverse-engineer cuts, keyframes, and velocity graphs from reference clips.</p>
+            </div>
+            <div class="status-card" onclick="openModal('toolsModal')">
+                <h3>Standalone Tools</h3>
+                <p>Smart AI background removal, smart brush, manual erase, and audio cleaning.</p>
+            </div>
+            <div class="status-card" onclick="openModal('ccModal')">
+                <h3>Color Correction Hub</h3>
+                <p>Explore 4K, Dark Moody, and Purple CC profiles split by Free & Pro.</p>
+            </div>
+            <div class="status-card" onclick="openModal('chatModal')">
+                <h3>Editor Lounge & Chat</h3>
+                <p>Trade presets, share edits, and connect live with other creators.</p>
             </div>
         </div>
     </main>
 
+    <!-- Curriculum Modal -->
+    <div id="curriculumModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Curriculum Hub</h2>
+                <button class="close-btn" onclick="closeModal('curriculumModal')">&times;</button>
+            </div>
+            <p>Select your app to load workflows and preset engines:</p>
+            <div class="module-list">
+                <div class="module-item">CapCut Reverse & Zoom Engine <span class="badge-free">Free</span></div>
+                <div class="module-item">Alight Motion Velocity Preset <span class="badge-pro">Pro</span></div>
+                <div class="module-item">After Effects Mobile Bridge Pack <span class="badge-pro">Pro</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Analyzer Modal -->
+    <div id="analyzerModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>AI Edit Analyzer</h2>
+                <button class="close-btn" onclick="closeModal('analyzerModal')">&times;</button>
+            </div>
+            <p>Upload a reference clip to auto-extract tracking data, zoom curves, and pacing.</p>
+            <div class="module-list">
+                <div class="module-item" style="justify-content: center; background: var(--accent); color: white;">
+                    Upload Reference Clip (+video)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Standalone Tools Modal -->
+    <div id="toolsModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Standalone Tools</h2>
+                <button class="close-btn" onclick="closeModal('toolsModal')">&times;</button>
+            </div>
+            <p>Dedicated utilities outside the timeline app:</p>
+            <div class="module-list">
+                <div class="module-item">Smart AI Background Removal <span class="badge-free">Free</span></div>
+                <div class="module-item">Smart Brush / Auto-Mask Erase <span class="badge-free">Free</span></div>
+                <div class="module-item">Manual Eraser Precision Brush <span class="badge-free">Free</span></div>
+                <div class="module-item">Pro Audio Cleaner & EQ Polish <span class="badge-pro">Pro</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Color Correction Modal -->
+    <div id="ccModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Color Correction Hub</h2>
+                <button class="close-btn" onclick="closeModal('ccModal')">&times;</button>
+            </div>
+            <p>Choose your software grade profile and aesthetic style:</p>
+            <div class="module-list">
+                <div class="module-item">4K Ultra-Sharp CC (CapCut/AM) <span class="badge-free">Free</span></div>
+                <div class="module-item">Dark Moody Cinematic CC (AE/PC) <span class="badge-pro">Pro</span></div>
+                <div class="module-item">Neon Purple Aesthetic CC (CapCut) <span class="badge-free">Free</span></div>
+                <div class="module-item">HDR Glow & Velvet Grade (All Apps) <span class="badge-pro">Pro</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Public Chat Modal -->
+    <div id="chatModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editor Lounge & Chat</h2>
+                <button class="close-btn" onclick="closeModal('chatModal')">&times;</button>
+            </div>
+            <p>Live stream of messages from creators around the world:</p>
+            <div class="chat-box" id="chatBox">
+                <div class="chat-msg"><span>VFX_Master:</span> Anyone got a clean AM velocity XML link?</div>
+                <div class="chat-msg"><span>Dextino5x:</span> Welcome to the hub! Drop your presets here.</div>
+                <div class="chat-msg"><span>EditorX:</span> Just tested the AI bg removal, it's insanely fast 🔥</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message or share a preset..." onkeypress="handleKey(event)">
+                <button class="chat-send" onclick="sendMsg()">Send</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
-        <p>Created & owned by DEXTINO.</p>        <p>Built with development assistance from ChatGPT.</p>
+        <p>Created & owned by DEXTINO.</p>
+        <p>Built with development assistance from ChatGPT.</p>
     </footer>
 
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function sendMsg() {
+            const input = document.getElementById('chatInput');
+            const chatBox = document.getElementById('chatBox');
+            if (input.value.trim() !== '') {
+                const newMsg = document.createElement('div');
+                newMsg.className = 'chat-msg';
+                newMsg.innerHTML = `<span>You:</span> ${input.value}`;
+                chatBox.appendChild(newMsg);
+                input.value = '';
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+
+        function handleKey(event) {
+            if (event.key === 'Enter') {
+                sendMsg();
+            }
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+
 </body>
-  </html>
-  
+    </html>
+                                          
