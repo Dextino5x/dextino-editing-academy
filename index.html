@@ -1,526 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEXTINO — Editing Academy | Professional Video Editing Hub</title>
-    <style>
-        :root {
-            --bg-primary: #0a0a0c;
-            --bg-secondary: #121318;
-            --bg-card: #181a22;
-            --accent: #6366f1;
-            --accent-glow: rgba(99, 102, 241, 0.25);
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --border: #27272a;
-            --success: #10b981;
-            --pro-badge: #f59e0b;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        header {
-            background-color: rgba(18, 19, 24, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .dx-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1rem;
-            color: #ffffff;
-            letter-spacing: -0.05em;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-        }
-
-        .logo-text {
-            font-size: 1.15rem;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            color: var(--text-main);
-            text-transform: uppercase;
-        }
-
-        .logo-text span {
-            color: var(--accent);
-            font-weight: 500;
-            font-size: 0.85rem;
-            margin-left: 0.25rem;
-        }
-
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 3rem 1.5rem;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            padding: 0.35rem 1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--success);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--success);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(0.95); opacity: 0.8; }
-        }
-
-        h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        p {
-            color: var(--text-muted);
-            font-size: clamp(1rem, 2vw, 1.15rem);
-            max-width: 600px;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.25rem;
-            max-width: 900px;
-            width: 100%;
-            margin-top: 1rem;
-        }
-
-        .status-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: left;
-            cursor: pointer;
-            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .status-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 25px var(--accent-glow);
-        }
-
-        .status-card h3 {
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-main);
-        }
-
-        .status-card p {
-            font-size: 0.9rem;
-            margin-bottom: 0;
-        }
-
-        /* Modal/View Overlay */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 10, 12, 0.85);
-            backdrop-filter: blur(8px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 200;
-            padding: 1.5rem;
-        }
-
-        .modal-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            max-width: 500px;
-            width: 100%;
-            text-align: left;
-            position: relative;
-            animation: scaleUp 0.3s ease-out;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-
-        @keyframes scaleUp {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .modal-header h2 {
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .close-btn:hover {
-            color: var(--text-main);
-        }
-
-        .module-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
-
-        .module-item {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: border-color 0.2s ease;
-        }
-
-        .module-item:hover {
-            border-color: var(--accent);
-        }
-
-        .badge-pro {
-            font-size: 0.7rem;
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--pro-badge);
-            border: 1px solid var(--pro-badge);
-            padding: 0.15rem 0.4rem;
-            border-radius: 4px;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        .badge-free {
-            font-size: 0.7rem;
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--success);
-            border: 1px solid var(--success);
-            padding: 0.15rem 0.4rem;
-            border-radius: 4px;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        /* Chat UI Styles */
-        .chat-box {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            height: 200px;
-            overflow-y: auto;
-            padding: 0.75rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .chat-msg {
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
-
-        .chat-msg span {
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .chat-input-area {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .chat-input {
-            flex: 1;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 0.5rem 0.75rem;
-            color: var(--text-main);
-            font-size: 0.9rem;
-        }
-
-        .chat-send {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        footer {
-            border-top: 1px solid var(--border);
-            background-color: var(--bg-secondary);
-            padding: 1.5rem;
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        footer p {
-            margin: 0.25rem 0;
-            font-size: 0.85rem;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="logo-container" onclick="location.reload();">
-            <div class="dx-icon">DX</div>
-            <div class="logo-text">Dextino <span>Academy</span></div>
-        </div>
-    </header>
-
-    <main>
-        <div class="hero-badge">
-            <span class="pulse-dot"></span> Ecosystem Active
-        </div>
-        <h1>Master the art of editing.</h1>
-        <p>A professional ecosystem built for mobile and desktop video editors, featuring masterclasses, AI suites, preset imports, and public chat rooms.</p>
-        
-        <div class="features-grid">
-            <div class="status-card" onclick="openModal('curriculumModal')">
-                <h3>Curriculum Hub</h3>
-                <p>CapCut, Alight Motion, and After Effects masterclasses & preset imports.</p>
-            </div>
-            <div class="status-card" onclick="openModal('analyzerModal')">
-                <h3>AI Edit Analyzer</h3>
-                <p>Reverse-engineer cuts, keyframes, and velocity graphs from reference clips.</p>
-            </div>
-            <div class="status-card" onclick="openModal('toolsModal')">
-                <h3>Standalone Tools</h3>
-                <p>Smart AI background removal, smart brush, manual erase, and audio cleaning.</p>
-            </div>
-            <div class="status-card" onclick="openModal('ccModal')">
-                <h3>Color Correction Hub</h3>
-                <p>Explore 4K, Dark Moody, and Purple CC profiles split by Free & Pro.</p>
-            </div>
-            <div class="status-card" onclick="openModal('chatModal')">
-                <h3>Editor Lounge & Chat</h3>
-                <p>Trade presets, share edits, and connect live with other creators.</p>
-            </div>
-        </div>
-    </main>
-
-    <!-- Curriculum Modal -->
-    <div id="curriculumModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Curriculum Hub</h2>
-                <button class="close-btn" onclick="closeModal('curriculumModal')">&times;</button>
-            </div>
-            <p>Select your app to load workflows and preset engines:</p>
-            <div class="module-list">
-                <div class="module-item">CapCut Reverse & Zoom Engine <span class="badge-free">Free</span></div>
-                <div class="module-item">Alight Motion Velocity Preset <span class="badge-pro">Pro</span></div>
-                <div class="module-item">After Effects Mobile Bridge Pack <span class="badge-pro">Pro</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- AI Analyzer Modal -->
-    <div id="analyzerModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>AI Edit Analyzer</h2>
-                <button class="close-btn" onclick="closeModal('analyzerModal')">&times;</button>
-            </div>
-            <p>Upload a reference clip to auto-extract tracking data, zoom curves, and pacing.</p>
-            <div class="module-list">
-                <div class="module-item" style="justify-content: center; background: var(--accent); color: white;">
-                    Upload Reference Clip (+video)
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Standalone Tools Modal -->
-    <div id="toolsModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Standalone Tools</h2>
-                <button class="close-btn" onclick="closeModal('toolsModal')">&times;</button>
-            </div>
-            <p>Dedicated utilities outside the timeline app:</p>
-            <div class="module-list">
-                <div class="module-item">Smart AI Background Removal <span class="badge-free">Free</span></div>
-                <div class="module-item">Smart Brush / Auto-Mask Erase <span class="badge-free">Free</span></div>
-                <div class="module-item">Manual Eraser Precision Brush <span class="badge-free">Free</span></div>
-                <div class="module-item">Pro Audio Cleaner & EQ Polish <span class="badge-pro">Pro</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Color Correction Modal -->
-    <div id="ccModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Color Correction Hub</h2>
-                <button class="close-btn" onclick="closeModal('ccModal')">&times;</button>
-            </div>
-            <p>Choose your software grade profile and aesthetic style:</p>
-            <div class="module-list">
-                <div class="module-item">4K Ultra-Sharp CC (CapCut/AM) <span class="badge-free">Free</span></div>
-                <div class="module-item">Dark Moody Cinematic CC (AE/PC) <span class="badge-pro">Pro</span></div>
-                <div class="module-item">Neon Purple Aesthetic CC (CapCut) <span class="badge-free">Free</span></div>
-                <div class="module-item">HDR Glow & Velvet Grade (All Apps) <span class="badge-pro">Pro</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Public Chat Modal -->
-    <div id="chatModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Editor Lounge & Chat</h2>
-                <button class="close-btn" onclick="closeModal('chatModal')">&times;</button>
-            </div>
-            <p>Live stream of messages from creators around the world:</p>
-            <div class="chat-box" id="chatBox">
-                <div class="chat-msg"><span>VFX_Master:</span> Anyone got a clean AM velocity XML link?</div>
-                <div class="chat-msg"><span>Dextino5x:</span> Welcome to the hub! Drop your presets here.</div>
-                <div class="chat-msg"><span>EditorX:</span> Just tested the AI bg removal, it's insanely fast 🔥</div>
-            </div>
-            <div class="chat-input-area">
-                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message or share a preset..." onkeypress="handleKey(event)">
-                <button class="chat-send" onclick="sendMsg()">Send</button>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <p>Created & owned by DEXTINO.</p>
-        <p>Built with development assistance from ChatGPT.</p>
-    </footer>
-
+    <title>DEXTINO — Professional Web-Based & Cross-Platform Video Editing Suite</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        function sendMsg() {
-            const input = document.getElementById('chatInput');
-            const chatBox = document.getElementById('chatBox');
-            if (input.value.trim() !== '') {
-                const newMsg = document.createElement('div');
-                newMsg.className = 'chat-msg';
-                newMsg.innerHTML = `<span>You:</span> ${input.value}`;
-                chatBox.appendChild(newMsg);
-                input.value = '';
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }
-        }
-
-        function handleKey(event) {
-            if (event.key === 'Enter') {
-                sendMsg();
-            }
-        }
-
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                event.target.style.display = 'none';
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#070709',
+                            800: '#101014',
+                            700: '#181820',
+                            600: '#22222d',
+                            500: '#323242',
+                        },
+                        brand: {
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            accent: '#06b6d4'
+                        }
+                    }
+                }
             }
         }
     </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #101014; }
+        ::-webkit-scrollbar-thumb { background: #22222d; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #323242; }
+        
+        body {
+            background-color: #070709;
+            color: #f3f4f6;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            overflow-x: hidden;
+        }
 
-</body>
-    </html>
-                                          
+        .glass-panel {
+            background: rgba(16, 16, 20, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: flex; flex-direction: column; }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(1000%); }
+        }
+        .animate-scan {
+            animation: scanline 2s linear infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <header class="glass-panel sticky top-0 z-50 px-4 py-3 flex items-center justify-between border-b border-dark-600">
+        <div class="flex items-center space-x-3">
+            <div class="bg-gradient-to-br from-indigo-500 via-purple-500 to-cyan-400 p-2 rounded-xl text-white font-black text-xl tracking-wider shadow-lg shadow-indigo-500/25 flex items-center space-x-2">
+                <i class="fa-solid fa-clapperboard"></i> <span>DEXTINO</span>
+            </div>
+            <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-semibold tracking-wide hidden sm:inline-block">Ultimate Edition v3.0</span>
+        </div>
+
+        <!-- Main Navigation Links -->
+        <nav class="hidden md:flex items-center space-x-1 text-sm font-medium">
+            <button onclick="switchTab('studio')" class="nav-btn px-3 py-2 rounded-lg transition text-indigo-400 bg-dark-700/90 hover:bg-dark-600 flex items-center space-x-2 shadow-sm" data-target="studio">
+                <i class="fa-solid fa-film"></i><span>Studio</span>
+            </button>
+            <button onclick="switchTab('color')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-400 hover:text-white hover:bg-dark-700/50 flex items-center space-x-2" data-target="color">
+                <i class="fa-solid fa-palette"></i><span>Colour Studio</span>
+            </button>
+            <button onclick="switchTab('tools')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-400 hover:text-white hover:bg-dark-700/50 flex items-center space-x-2" data-target="tools">
+                <i class="fa-solid fa-wand-magic-sparkles"></i><span>Pro Tools</span>
+            </button>
+            <button onclick="switchTab('analyzer')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-400 hover:text-white hover:bg-dark-700/50 flex items-center space-x-2" data-target="analyzer">
+                <i class="fa-solid fa-brain"></i><span>AI Ref Analyzer</span>
+            </button>
+            <button onclick="switchTab('tutorials')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-400 hover:text-white hover:bg-dark-700/50 flex items-center space-x-2" data-target="tutorials">
+                <i class="fa-solid fa-graduation-cap"></i><span>Tutorials Hub</span>
+            </button>
+        </nav>
+
+        <div class="flex items-center space-x-3">
+            <button onclick="openExportModal()" class="bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white px-4 py-2 rounded-xl text-sm font-semibold transition shadow-md shadow-indigo-600/30 flex items-center space-x-2">
+                <i class="fa-solid fa-download"></i><span>Export Project</span>
+            </button>
+            <!-- Mobile Menu Toggle -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-gray-400 hover:text-white p-2">
+                <i class="fa-solid fa-bars text-lg"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 bg-dark-900/95 backdrop-blur-xl hidden flex-col p-6 space-y-4 md:hidden">
+        <div class="flex justify-between items-center pb-4 border-b border-dark-700">
+            <span class="text-lg font-bold text-white flex items-center"><i class="fa-solid fa-clapperboard text-indigo-500 mr-2"></i> DEXTINO Menu</span>
+            <button onclick="toggleMobileMenu()" class="text-gray-400 hover:text-white text-xl p-2"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <button onclick="switchTab('studio'); toggleMobileMenu();" class="text-left px-4 py-3 rounded-xl bg-dark-700 text-white font-medium flex items-center space-x-3"><i class="fa-solid fa-film text-indigo-400 w-6"></i><span>Studio Workspace</span></button>
+        <button onclick="switchTab('color'); toggleMobileMenu();" class="text-left px-4 py-3 rounded-xl hover:bg-dark-700 text-gray-300 font-medium flex items-center space-x-3"><i class="fa-solid fa-palette text-indigo-400 w-6"></i><span>Colour Correction Studio (30+ CC)</span></button>
+        <button onclick="switchTab('tools'); toggleMobileMenu();" class="text-left px-4 py-3 rounded-xl hover:bg-dark-700 text-gray-300 font-medium flex items-center space-x-3"><i class="fa-solid fa-wand-magic-sparkles text-indigo-400 w-6"></i><span>Pro Tools & Smart Erase</span></button>
+        <button onclick="switchTab('analyzer'); toggleMobileMenu();" class="text-left px-4 py-3 rounded-xl hover:bg-dark-700 text-gray-300 font-medium flex items-center space-x-3"><i class="fa-solid fa-brain text-indigo-400 w-6"></i><span>AI Reference Analyzer</span></button>
+        <button onclick="switchTab('tutorials'); toggleMobileMenu();" class="text-left px-4 py-3 rounded-xl hover:bg-dark-700 text-gray-300 font-medium flex items-center space-x-3"><i class="fa-solid fa-graduation-cap text-indigo-400 w-6"></i><span>Tutorial Lessons Hub</span></button>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col relative">
+
+        <!-- TAB 1: DEXTINO STUDIO (Inbuilt Multi-Track Timeline & Editing App) -->
+        <div id="tab-studio" class="tab-content active flex-1 p-4 gap-4 max-w-7xl mx-auto w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 flex-1">
+                <!-- Media Bin / Project Assets -->
+                <div class="glass-panel rounded-2xl p-4 flex flex-col h-[320px] lg:h-auto">
+                    <div class="flex items-center justify-between pb-3 border-b border-dark-600 mb-3">
+                        <h3 class="font-bold text-xs uppercase tracking-wider text-gray-300 flex items-center space-x-2"><i class="fa-solid fa-folder-open text-indigo-400"></i><span>Media & Presets Bin</span></h3>
+                        <label class="cursor-pointer bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 text-xs px-2.5 py-1.5 rounded-lg font-medium transition flex items-center space-x-1.5 border border-indigo-500/30">
+                            <i class="fa-solid fa-plus"></i><span>Import Media</span>
+                            <input type="file" id="media-file-input" accept="video/*,audio/*,image/*" class="hidden" onchange="handleMediaImport(event)">
+                        </label>
+                    </div>
+                    <div id="media-bin-list" class="flex-1 overflow-y-auto space-y-2 pr-1">
+                        <div class="text-center py-10 text-gray-500 text-xs border border-dashed border-dark-600 rounded-xl">
+                            <i class="fa-solid fa-cloud-arrow-up text-2xl mb-2 text-gray-600"></i>
+                            <p>No media imported yet.</p>
+                            <p class="text-[11px] text-gray-600 mt-1">Upload video, clips, or images.</p>
+                        </div>
+                    </div>
+                    <!-- Built-in FX Quick Drawer -->
+                    <div class="mt-3 pt-3 border-t border-dark-600">
+                        <span class="text-[11px] font-semibold text-gray-400 block mb-2">Quick Effects & Keyframes</span>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="applyStudioEffect('Zoom In')" class="bg-dark-700 hover:bg-dark-600 text-gray-200 text-xs py-1.5 px-2 rounded-lg transition border border-dark-600 text-left"><i class="fa-solid fa-magnifying-glass-plus text-indigo-400 mr-1"></i> Zoom In Key</button>
+                            <button onclick="applyStudioEffect('Shake FX')" class="bg-dark-700 hover:bg-dark-600 text-gray-200 text-xs py-1.5 px-2 rounded-lg transition border border-dark-600 text-left"><i class="fa-solid fa-bolt text-cyan-400 mr-1"></i> Shake FX</button>
+                            <button onclick="applyStudioEffect('Glow Aura')" class="bg-dark-700 hover:bg-dark-600 text-gray-200 text-xs py-1.5 px-2 rounded-lg transition border border-dark-600 text-left"><i class="fa-solid fa-sun text-yellow-400 mr-1"></i> Glow Aura</button>
+                            <button onclick="applyStudioEffect('Text Title')" class="bg-dark-700 hover:bg-dark-600 text-gray-200 text-xs py-1.5 px-2 rounded-lg transition border border-dark-600 text-left"><i class="fa-solid fa-font text-purple-400 mr-1"></i> Text Overlay</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Preview Monitor -->
+                <div class="glass-panel rounded-2xl p-4 flex flex-col lg:col-span-3 justify-between">
+                    <div class="flex items-center justify-between pb-3 border-b border-dark-600">
+                        <div class="flex items-center space-x-3">
+                            <h3 class="font-bold text-xs uppercase tracking-wider text-gray-300 flex items-center space-x-2"><i class="fa-solid fa-desktop text-indigo-400"></i><span>Program Monitor</span></h3>
+                            <span id="active-effect-tag" class="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30 hidden">Effect Active</span>
+                        </div>
+                        <span id="timecode-display" class="font-mono text-xs bg-dark-800 px-2.5 py-1 rounded text-indigo-300 border border-dark-600">00:00:00:00</span>
+                    </div>
+                    
+                    <div id="monitor-view-container" class="relative bg-black rounded-xl overflow-hidden my-3 flex items-center justify-center aspect-video shadow-inner flex-1 border border-dark-600">
+                        <video id="studio-video-player" class="w-full h-full object-contain" ontimeupdate="updatePlaybackTime()" onended="stopPlayback()"></video>
+                        <div id="video-placeholder" class="absolute inset-0 flex flex-col items-center justify-center text-gray-500 bg-dark-900/90">
+                            <i class="fa-solid fa-clapperboard text-4xl mb-2 text-indigo-500 animate-pulse"></i>
+                            <p class="text-sm font-semibold text-gray-300">DEXTINO Studio Workspace Ready</p>
+                            <p class="text-xs text-gray-500 mt-1">Import a video from your media bin to start editing with pro keyframes & effects</p>
+                        </div>
+                    </div>
+
+                    <!-- Playback & Editing Toolbar -->
+                    <div class="flex flex-col space-y-2">
+                        <input type="range" id="video-seek-bar" value="0" min="0" max="100" step="0.1" oninput="seekVideo(this.value)" class="w-full accent-indigo-500 cursor-pointer">
+                        <div class="flex items-center justify-between pt-1">
+                            <div class="flex items-center space-x-2">
+                                <button onclick="skipTime(-5)" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 text-gray-300 transition text-xs" title="Rewind 5s"><i class="fa-solid fa-backward-step"></i></button>
+                                <button onclick="togglePlay()" id="play-pause-btn" class="w-10 h-10 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition flex items-center justify-center shadow-md shadow-indigo-600/30"><i class="fa-solid fa-play"></i></button>
+                                <button onclick="skipTime(5)" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 text-gray-300 transition text-xs" title="Forward 5s"><i class="fa-solid fa-forward-step"></i></button>
+                            </div>
+                            <div class="flex items-center space-x-2 text-xs">
+                                <button onclick="splitClipAtPlayhead()" class="px-3 py-1.5 rounded-lg bg-dark-700 hover:bg-dark-600 text-white font-medium transition flex items-center space-x-1.5"><i class="fa-solid fa-scissors text-indigo-400"></i><span>Split</span></button>
+                                <button onclick="duplicateActiveClip()" class="px-3 py-1.5 rounded-lg bg-dark-700 hover:bg-dark-600 text-white font-medium transition flex items-center space-x-1.5"><i class="fa-solid fa-clone text-cyan-400"></i><span>Duplicate</span></button>
+                                <button onclick="trimActiveClip()" class="px-3 py-1.5 rounded-lg bg-dark-700 hover:bg-dark-600 text-white font-medium transition flex items-center space-x-1.5"><i class="fa-solid fa-crop text-yellow-400"></i><span>Trim</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Multi-Track Timeline -->
+            <div class="glass-panel rounded-2xl p-4 flex flex-col">
+                <div class="flex items-center justify-between pb-3 border-b border-dark-600 mb-3">
+                    <h3 class="font-bold text-xs uppercase tracking-wider text-gray-300 flex items-center space-x-2"><i class="fa-solid fa-layer-group text-indigo-400"><span>Multi-Track Timeline & Keyframes</span></h3>
+                    <div class="flex items-center space-x-3 text-xs text-gray-400">
+                        <span class="text-indigo-400 font-semibold"><i class="fa-solid fa-circle-dot text-[9px] mr-1"></i> Keyframe Engine Active</span>
+                    </div>
+                </div>
+                <div id="timeline-container" class="bg-dark-900 rounded-xl p-3 min-h-[150px] overflow-x-auto flex flex-col space-y-2 border border-dark-600">
+                    <div class="flex items-center space-x-2 text-xs text-gray-500 border-b border-dark-800 pb-1.5">
+                        <span class="w-20 font-semibold text-indigo-400 flex items-center"><i class="fa-solid fa-video mr-1"></i> V1 Video</span>
+                        <div id="timeline-track-v1" class="flex-1 h-12 bg-dark-800/80 rounded-lg border border-dark-700 relative flex items-center px-2 overflow-hidden">
+                            <span class="text-gray-600 italic">Drop clips from media bin to build timeline</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-gray-500 border-b border-dark-800 pb-1.5">
+                        <span class="w-20 font-semibold text-purple-400 flex items-center"><i class="fa-solid fa-font mr-1"></i> T1 Text/FX</span>
+                        <div id="timeline-track-t1" class="flex-1 h-9 bg-dark-800/80 rounded-lg border border-dark-700 relative flex items-center px-2 overflow-hidden">
+                            <span class="text-gray-600 italic">Text overlays & smart effects layer</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-gray-500">
+                        <span class="w-20 font-semibold text-cyan-400 flex items-center"><i class="fa-solid fa-music mr-1"></i> A1 Audio</span>
+                        <div id="timeline-track-a1" class="flex-1 h-9 bg-dark-800/80 rounded-lg border border-dark-700 relative flex items-center px-2 overflow-hidden">
+                            <span class="text-gray-600 italic">Audio soundtrack layer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: COLOUR CORRECTION STUDIO (30+ Distinct Styles across Software) -->
+        <div id="tab-color" class="tab-content flex-1 p-4 max-w-7xl mx-auto w-full">
+            <div class="glass-panel rounded-2xl p-6 flex flex-col h-full">
+                <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-dark-600 mb-6 gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-white flex items-center space-x-2"><i class="fa-solid fa-palette text-indigo-400"></i><span>Colour Correction Studio (30+ Pro CC Styles)</span></h2>
+                        <p class="text-sm text-gray-400 mt-1">Select any of the 30+ rare & impressive color corrections inspired by CapCut, Alight Motion, VN, and After Effects. View exact software steps and apply instantly!</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button onclick="resetColorGrading()" class="px-4 py-2 rounded-xl bg-dark-700 hover:bg-dark-600 text-sm font-medium transition text-gray-300 border border-dark-600">Reset Grading</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1">
+                    <!-- Live Preview & Exact Steps Box -->
+                    <div class="glass-panel rounded-xl p-4 flex flex-col justify-between bg-dark-900/60 border border-dark-600">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-400">Live CC Preview</h3>
+                                <span id="cc-source-tag" class="text-[10px] px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono">CapCut / AM Style</span>
+                            </div>
+                            <div id="color-preview-box" class="w-full aspect-video rounded-xl bg-gradient-to-tr from-purple-950 via-indigo-950 to-blue-950 flex items-center justify-center relative overflow-hidden shadow-2xl transition-all duration-300 border border-dark-600">
+                                <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=800&q=80')"></div>
+                                <span id="active-grade-label" class="relative z-10 px-4 py-2 rounded-xl bg-black/70 ba 
